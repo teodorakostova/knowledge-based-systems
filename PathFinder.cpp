@@ -18,6 +18,7 @@ bool PathFinder::findPath(ostream& out, int limitOfStates) {
     queue<Node*> q;
     vector<Node*> visited;
     q.push(root);
+
     while (!q.empty()) {
         if (statesGenerated >= limitOfStates) {
             cout << "No solution found in this limit\n";
@@ -26,14 +27,14 @@ bool PathFinder::findPath(ostream& out, int limitOfStates) {
         Node* current = q.front();
         q.pop();
         visited.push_back(current);
-        current->print(out);
-        out << endl;
+
         if (current->isOrdered()) {
             cout << "Ordered" << endl;
             break;
         }
         vector<Node*> children;
         current->getChildren(children);
+        cout << children.size() << endl;
         int childrenCount = children.size();
         for (int i = 0; i < childrenCount; i++) {
             statesGenerated++;

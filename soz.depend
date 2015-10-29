@@ -81,3 +81,28 @@
 	"Node.h"
 	"PathFinder.h"
 
+1446139959 source:c:\users\teodora\projects\knowledgebasedsystems\knowledge-based-systems\node.cpp
+	"Node.h"
+
+1446137599 c:\users\teodora\projects\knowledgebasedsystems\knowledge-based-systems\node.h
+	<iostream>
+	<vector>
+	<cstring>
+
+1446139844 source:c:\users\teodora\projects\knowledgebasedsystems\knowledge-based-systems\pathfinder.cpp
+	"PathFinder.h"
+	<queue>
+	<vector>
+
+1446137599 c:\users\teodora\projects\knowledgebasedsystems\knowledge-based-systems\pathfinder.h
+	"Node.h"
+
+1446138676 source:c:\users\teodora\projects\knowledgebasedsystems\knowledge-based-systems\main.cpp
+	<iostream>
+	<cstring>
+	<vector>
+	<fstream>
+	<queue>
+	"Node.h"
+	"PathFinder.h"
+

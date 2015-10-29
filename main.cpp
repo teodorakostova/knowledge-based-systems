@@ -44,7 +44,7 @@ void play(Node& start, int max_moves) {
                 break;
         }
         moves++;
-        system("clear");
+        //system("clear");
         start.print(cout);
         if (start.isOrdered()) {
             cout << "YOU WIN\n";
