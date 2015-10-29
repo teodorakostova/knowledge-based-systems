@@ -1,4 +1,6 @@
 #include "Node.h"
+#define MATRIX_DIM 3
+#define EMPTY_CELL 'x'
 
 Node::Node(string data, int pos) {
     this->data = data;
@@ -33,7 +35,7 @@ string Node::getData() const {
 }
 
 int Node::findX() const {
-    int len = sizeof(data) + 1;
+    int len = MATRIX_DIM * MATRIX_DIM - 1;
     for (int i = 0; i < len; i++)
         if (data[i] == EMPTY_CELL)
             return i;
@@ -45,7 +47,7 @@ bool Node::canMoveUp() const {
 }
 
 bool Node::canMoveDown() const {
-    return x_pos < sizeof(data) - MATRIX_DIM + 1;
+    return x_pos + MATRIX_DIM < MATRIX_DIM * MATRIX_DIM - 1;
 }
 
 bool Node::canMoveRight() const {
@@ -61,16 +63,12 @@ bool Node::isOrdered() const {
     if (data[0] != EMPTY_CELL && data[MATRIX_DIM * MATRIX_DIM - 1] != EMPTY_CELL)
         return false;
     bool ordered = true;
-    int len = data.size();
+    int len = MATRIX_DIM * MATRIX_DIM - 1;
     for (int i = 1; i < len; i++)
         if (data[i] > data[i+1])
             ordered = false;
 
-    bool orderedBackwards = true;
-     for (int i = 1; i < len; i++)
-        if (data[i] < data[i+1])
-            orderedBackwards = false;
-    return orderedBackwards || ordered;
+    return ordered;
 }
 
 int Node::getDownPos() const {
@@ -96,7 +94,7 @@ Node& Node::moveX(int moveToIndex) const {
 }
 
 void Node::print(ostream& out) const {
-    int length = data.size();
+    int length = MATRIX_DIM * MATRIX_DIM - 1;
     for (int i = 0; i < length; i++) {
         out << data[i] << " ";
         if ((i + 1) % MATRIX_DIM == 0)

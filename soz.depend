@@ -81,23 +81,24 @@
 	"Node.h"
 	"PathFinder.h"
 
-1446139959 source:c:\users\teodora\projects\knowledgebasedsystems\knowledge-based-systems\node.cpp
+1446152084 source:c:\users\teodora\projects\knowledgebasedsystems\knowledge-based-systems\node.cpp
 	"Node.h"
 
-1446137599 c:\users\teodora\projects\knowledgebasedsystems\knowledge-based-systems\node.h
+1446151997 c:\users\teodora\projects\knowledgebasedsystems\knowledge-based-systems\node.h
 	<iostream>
 	<vector>
 	<cstring>
 
-1446139844 source:c:\users\teodora\projects\knowledgebasedsystems\knowledge-based-systems\pathfinder.cpp
+1446151483 source:c:\users\teodora\projects\knowledgebasedsystems\knowledge-based-systems\pathfinder.cpp
 	"PathFinder.h"
+	"StateCompare.h"
 	<queue>
 	<vector>
 
-1446137599 c:\users\teodora\projects\knowledgebasedsystems\knowledge-based-systems\pathfinder.h
+1446151260 c:\users\teodora\projects\knowledgebasedsystems\knowledge-based-systems\pathfinder.h
 	"Node.h"
 
-1446138676 source:c:\users\teodora\projects\knowledgebasedsystems\knowledge-based-systems\main.cpp
+1446152084 source:c:\users\teodora\projects\knowledgebasedsystems\knowledge-based-systems\main.cpp
 	<iostream>
 	<cstring>
 	<vector>
@@ -105,4 +106,7 @@
 	<queue>
 	"Node.h"
 	"PathFinder.h"
+
+1446151552 c:\users\teodora\projects\knowledgebasedsystems\knowledge-based-systems\statecompare.h
+	"Node.h"
 

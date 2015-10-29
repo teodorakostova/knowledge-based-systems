@@ -1,4 +1,5 @@
 #include "PathFinder.h"
+#include "StateCompare.h"
 #include <queue>
 #include <vector>
 
@@ -21,20 +22,19 @@ bool PathFinder::findPath(ostream& out, int limitOfStates) {
 
     while (!q.empty()) {
         if (statesGenerated >= limitOfStates) {
-            cout << "No solution found in this limit\n";
-            break;
+            out << "No solution found in this limit: " << limitOfStates << endl;
+            return false;
         }
         Node* current = q.front();
         q.pop();
         visited.push_back(current);
 
         if (current->isOrdered()) {
-            cout << "Ordered" << endl;
+            out << "Ordered" << endl;
             break;
         }
         vector<Node*> children;
         current->getChildren(children);
-        cout << children.size() << endl;
         int childrenCount = children.size();
         for (int i = 0; i < childrenCount; i++) {
             statesGenerated++;
@@ -46,6 +46,7 @@ bool PathFinder::findPath(ostream& out, int limitOfStates) {
         exploredNodes++;
     }
 
-    cout << "Generated states: " << statesGenerated << endl;
-    cout << "Explored nodes: " << exploredNodes << endl;
+    out << "Generated states: " << statesGenerated << endl;
+    out << "Explored nodes: " << exploredNodes << endl;
+    return true;
 }
