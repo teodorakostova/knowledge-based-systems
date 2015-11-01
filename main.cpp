@@ -57,7 +57,10 @@ void play(Node& start, int max_moves) {
 
 
 int main() {
-    Node root("38426175x", -2);
+    //Node root("38426175x", -2);
+    //Node root("38426175x", -2);
+    //Node root("38426175x", -2);
+    Node root("182x43765", -2);
     ofstream out;
     out.open("out.txt", ios::trunc);
     PathFinder p(root);

@@ -35,7 +35,7 @@ string Node::getData() const {
 }
 
 int Node::findX() const {
-    int len = MATRIX_DIM * MATRIX_DIM - 1;
+    int len = MATRIX_DIM * MATRIX_DIM;
     for (int i = 0; i < len; i++)
         if (data[i] == EMPTY_CELL)
             return i;
@@ -63,7 +63,7 @@ bool Node::isOrdered() const {
     if (data[0] != EMPTY_CELL && data[MATRIX_DIM * MATRIX_DIM - 1] != EMPTY_CELL)
         return false;
     bool ordered = true;
-    int len = MATRIX_DIM * MATRIX_DIM - 1;
+    int len = MATRIX_DIM * MATRIX_DIM;
     for (int i = 1; i < len; i++)
         if (data[i] > data[i+1])
             ordered = false;
@@ -94,7 +94,7 @@ Node& Node::moveX(int moveToIndex) const {
 }
 
 void Node::print(ostream& out) const {
-    int length = MATRIX_DIM * MATRIX_DIM - 1;
+    int length = MATRIX_DIM * MATRIX_DIM;
     for (int i = 0; i < length; i++) {
         out << data[i] << " ";
         if ((i + 1) % MATRIX_DIM == 0)
