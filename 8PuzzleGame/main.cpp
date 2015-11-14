@@ -57,13 +57,14 @@ void play(Node& start, int max_moves) {
 
 
 int main() {
-    //Node root("38426175x", -2);
-    //Node root("38426175x", -2);
-    //Node root("38426175x", -2);
-    Node root("182x43765", -2);
+    //Node root("38426175x", -2); //yes
+    //Node root("12x345678", -2); // yes
+    Node root("652147x38", -2);
+    //Node root("182x43765", -2); // no --> more than 20 000?
+
     ofstream out;
     out.open("out.txt", ios::trunc);
     PathFinder p(root);
-    p.findPath(out, 20000);
+    p.findPath(out, 200000);
     return 0;
 }

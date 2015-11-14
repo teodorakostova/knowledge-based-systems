@@ -28,8 +28,9 @@ bool PathFinder::findPath(ostream& out, int limitOfStates) {
         Node* current = q.front();
         q.pop();
         visited.push_back(current);
-        current->print(out);
-        out << endl;
+        //current->print(out);
+        //out << current->getData();
+        //out << endl;
         if (current->isOrdered()) {
             out << "Ordered" << endl;
             break;

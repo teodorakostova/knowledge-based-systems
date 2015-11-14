@@ -1,6 +1,8 @@
 #include "Node.h"
 #define MATRIX_DIM 3
 #define EMPTY_CELL 'x'
+#define goal "12345678x"
+#define goal1 "x12345678"
 
 Node::Node(string data, int pos) {
     this->data = data;
@@ -60,15 +62,7 @@ bool Node::canMoveLeft() const {
 
 
 bool Node::isOrdered() const {
-    if (data[0] != EMPTY_CELL && data[MATRIX_DIM * MATRIX_DIM - 1] != EMPTY_CELL)
-        return false;
-    bool ordered = true;
-    int len = MATRIX_DIM * MATRIX_DIM;
-    for (int i = 1; i < len; i++)
-        if (data[i] > data[i+1])
-            ordered = false;
-
-    return ordered;
+    return data == goal || data == goal1;
 }
 
 int Node::getDownPos() const {
