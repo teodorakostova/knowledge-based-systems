@@ -3,9 +3,9 @@ public class Main {
 
 	public static void main(String[] args) {
 		//String filePath = args[0];
-		String filePath = "C:\\Users\\Teodora\\Downloads\\mymap.csv";
-		Map start = new Map(filePath);
-		start.printMap();
+		String pathToMap = "C:\\Users\\Teodora\\Downloads\\mymap.csv";
+		Solver solver = Solver.getSolver();
+		solver.findPathToGoal(pathToMap, 0, 0, 5, 5);
 	}
 
 }

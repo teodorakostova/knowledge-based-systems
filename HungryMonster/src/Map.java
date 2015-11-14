@@ -3,26 +3,43 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.PriorityQueue;
 
 public class Map {
 	
-	private ArrayList<Object> mazeMap = new ArrayList<>();
+	private ArrayList<String[]> mazeMap = new ArrayList<String[]>();
+	private int width;
+	private int height;
 	
 	public Map(String filePath) {
 		loadMap(filePath);
 	}
 	
+	public int getWidth() {
+		return width;
+	}
+	
+	public int getHeight() {
+		return height;
+	}
+	
+	public char getCellCharAtPos(int x, int y) throws ArrayIndexOutOfBoundsException{		
+		return mazeMap.get(y)[x].charAt(0);
+	}
+	
 	private void loadMap(String filePath) {
 		try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
-			String line = br.readLine();
-			//for (int i = 0; i < line.length(); i++) {
+			String line = null;			
+			int rowsCount = 0;
+			while ((line = br.readLine()) != null) {
 				mazeMap.add(line.split(","));
-			//}
-			System.out.println(line);
-			for (int i = 0; i < line.length(); i++) {
-				
+				rowsCount++;
 			}
+			
+			this.height = rowsCount;
+			this.width = mazeMap.get(0).length;
+			
 			
 		} catch (FileNotFoundException e) {
 			System.out.println("Cannot find file on the specified path");
@@ -30,19 +47,20 @@ public class Map {
 		} catch (IOException e) {
 			System.out.println("An exception occured while opening input file.");
 			e.printStackTrace();
+		} catch (NullPointerException e) {
+			System.out.println("The loaded map is empty");
+			e.printStackTrace();
 		}
 	}
 	
 	public void printMap() {
-		for (int i = 0; i < mazeMap.size(); i++) {
-			System.out.print(mazeMap.get(i));
+		for (String[] l : mazeMap) {
+			for (String c : l) {
+				System.out.print(c + '|');				
+			}
+			System.out.println();
 			
 		}
 	}
 	
-	public ArrayList<MapCell> findPath(MapCell start, MapCell end) {
-		ArrayList<MapCell> result = new ArrayList<>();
-		PriorityQueue<MapCell> q = new PriorityQueue<>(); 
-		return result;
-	}
 }
