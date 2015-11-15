@@ -50,7 +50,7 @@ public class MapCell implements Comparable<MapCell> {
 	public MapCell(int xCoord, int yCoord, MapCell parent, double movementCost) {
 		this.xCoord = xCoord;
 		this.yCoord = yCoord;
-		this.parent = parent;
+		this.setParent(parent);
 		if (parent == null) {
 			this.movementCost = 0 + movementCost;
 		}
@@ -87,6 +87,20 @@ public class MapCell implements Comparable<MapCell> {
 		return movementCost;
 	}
 	
+	/**
+	 * @return the parent
+	 */
+	public MapCell getParent() {
+		return parent;
+	}
+
+	/**
+	 * @param parent the parent to set
+	 */
+	public void setParent(MapCell parent) {
+		this.parent = parent;
+	}
+		
 	/**
 	 * Gets the x coord.
 	 *
@@ -265,5 +279,5 @@ public class MapCell implements Comparable<MapCell> {
 	private boolean inBounds(Map map, int xPos, int yPos) {
 		return xPos >= 0 && xPos < map.getWidth() && yPos >= 0 && yPos < map.getHeight();
 	}
-	
+
 }

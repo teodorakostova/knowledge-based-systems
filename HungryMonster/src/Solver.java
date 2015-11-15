@@ -62,6 +62,7 @@ public class Solver {
 	 */
 	private void solve(MapCell start, MapCell goal, Map map) {
 		List<Integer> closed = new ArrayList<>();
+		List<MapCell> path = new ArrayList<>();
 		PriorityQueue<MapCell> open = new PriorityQueue<>();
 		start.calculateManhattanDistance(goal);
 		open.add(start);
@@ -70,13 +71,23 @@ public class Solver {
 		while (open.isEmpty() == false) {
 			MapCell current = open.poll();
 			closed.add(current.hashCode());
-			System.out.println(current);
+			//System.out.println(current);
 			steps++;
 			if (steps >= 2000) {
 				System.out.println("Cannot solve");
 				break;
 			}
 			if (current.equals(goal)) {
+				while (!current.equals(start)) {
+					path.add(current);
+					current = current.getParent();
+				}
+				int pathSize = path.size() - 1;
+				System.out.println("Steps: " + pathSize);
+				for (int i = pathSize; i >= 0; i--) {
+					System.out.println(path.get(i));
+				}
+				
 				System.out.println("Goal reached");
 				break;
 			}
