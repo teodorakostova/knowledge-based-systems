@@ -3,31 +3,69 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.PriorityQueue;
 
+/**
+ * The Class Map.
+ */
 public class Map {
 	
+	/** The maze map. */
 	private ArrayList<String[]> mazeMap = new ArrayList<String[]>();
+	
+	/** The width. */
 	private int width;
+	
+	/** The height. */
 	private int height;
 	
+	/**
+	 * Instantiates a new map.
+	 *
+	 * @param filePath
+	 *            the file path
+	 */
 	public Map(String filePath) {
 		loadMap(filePath);
 	}
 	
+	/**
+	 * Gets the width.
+	 *
+	 * @return the width
+	 */
 	public int getWidth() {
 		return width;
 	}
 	
+	/**
+	 * Gets the height.
+	 *
+	 * @return the height
+	 */
 	public int getHeight() {
 		return height;
 	}
 	
+	/**
+	 * Gets the cell char at position.
+	 *
+	 * @param x
+	 *            the x coordinates
+	 * @param y
+	 *            the y coordinates
+	 * @return the cell char at the specified position
+	 * @throws ArrayIndexOutOfBoundsException
+	 */
 	public char getCellCharAtPos(int x, int y) throws ArrayIndexOutOfBoundsException{		
 		return mazeMap.get(y)[x].charAt(0);
 	}
 	
+	/**
+	 * Load map.
+	 *
+	 * @param filePath
+	 *            the file path
+	 */
 	private void loadMap(String filePath) {
 		try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
 			String line = null;			
@@ -53,6 +91,9 @@ public class Map {
 		}
 	}
 	
+	/**
+	 * Prints the map.
+	 */
 	public void printMap() {
 		for (String[] l : mazeMap) {
 			for (String c : l) {

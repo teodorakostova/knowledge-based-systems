@@ -1,32 +1,66 @@
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.PriorityQueue;
-import java.util.Queue;
 
-import javax.print.attribute.standard.PrinterName;
-
+/**
+ * The Class Solver.
+ */
 public class Solver {
 	
-	private Solver() {
-		
-	}
+	/** The solver. */
+	private static Solver solver = null;
 	
+	/**
+	 * Used only for preventing instantiation. 
+	 */
+	private Solver() {
+
+	}
+
+	/**
+	 * Find path to goal.
+	 *
+	 * @param pathToMap
+	 *            the path to map
+	 * @param startX
+	 *            the start x
+	 * @param startY
+	 *            the start y
+	 * @param goalX
+	 *            the goal x
+	 * @param goalY
+	 *            the goal y
+	 */
 	public void findPathToGoal(String pathToMap, int startX, int startY, int goalX, int goalY) {
 		MapCell start = new MapCell(startX, startY);
 		MapCell goal = new MapCell(goalX, goalY);
 		Map map = new Map(pathToMap);
 		solve(start, goal, map);
-		
 	}
-	
-	public static Solver getSolver() {
-		return new Solver();
+
+	/**
+	 * Gets the single instance of Solver.
+	 *
+	 * @return single instance of Solver
+	 */
+	public static Solver getInstance() {
+		if (solver == null) {
+			solver = new Solver();
+		}
+		return solver;
 	}
-	
+
+	/**
+	 * Find path to goal using A* algorithm.
+	 *
+	 * @param start
+	 *            the start
+	 * @param goal
+	 *            the goal
+	 * @param map
+	 *            the map
+	 */
 	private void solve(MapCell start, MapCell goal, Map map) {
-		map.printMap();
-		List<MapCell> result = new ArrayList<>();
 		List<Integer> closed = new ArrayList<>();
 		PriorityQueue<MapCell> open = new PriorityQueue<>();
 		start.calculateManhattanDistance(goal);
@@ -36,9 +70,9 @@ public class Solver {
 		while (open.isEmpty() == false) {
 			MapCell current = open.poll();
 			closed.add(current.hashCode());
-			System.out.println("Current " + current);
+			System.out.println(current);
 			steps++;
-			if (steps >= 200) {
+			if (steps >= 2000) {
 				System.out.println("Cannot solve");
 				break;
 			}
@@ -49,15 +83,11 @@ public class Solver {
 			ArrayList<MapCell> children = current.getChildren(map, goal);
 			for (MapCell child : children) {
 				if (!closed.contains(child.hashCode())) {
-					System.out.println("Child: " + child);
 					open.add(child);
 					closed.add(child.hashCode());
 				}
 			}
 		}
-
 	}
-	
-	
-	
+
 }

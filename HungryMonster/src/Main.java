@@ -1,11 +1,17 @@
-
 public class Main {
 
 	public static void main(String[] args) {
-		//String filePath = args[0];
-		String pathToMap = "C:\\Users\\Teodora\\Downloads\\mymap.csv";
-		Solver solver = Solver.getSolver();
-		solver.findPathToGoal(pathToMap, 0, 0, 5, 5);
+		if (args.length < 5) {
+			System.out.println("Please specify path to file and coordinates of starting and ending point");
+			return;
+		}
+		String pathToMap = args[0];
+		if (pathToMap == null) {
+			pathToMap = Utils.defaultPathToMap;
+		}
+		Solver solver = Solver.getInstance();
+		solver.findPathToGoal(pathToMap, Integer.parseInt(args[1]), Integer.parseInt(args[2]),
+				Integer.parseInt(args[3]), Integer.parseInt(args[4]));
 	}
 
 }
