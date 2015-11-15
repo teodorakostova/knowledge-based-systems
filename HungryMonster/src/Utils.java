@@ -17,5 +17,5 @@ public class Utils {
 	public static double straightCost = 1.0;
 	
 	/** The default path to map. */
-	public static String defaultPathToMap = "\\mymap.csv";
+	public static String defaultPathToMap = "\\mymap4.csv";
 }

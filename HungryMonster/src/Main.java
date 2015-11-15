@@ -6,9 +6,6 @@ public class Main {
 			return;
 		}
 		String pathToMap = args[0];
-		if (pathToMap == null) {
-			pathToMap = Utils.defaultPathToMap;
-		}
 		Solver solver = Solver.getInstance();
 		solver.findPathToGoal(pathToMap, Integer.parseInt(args[1]), Integer.parseInt(args[2]),
 				Integer.parseInt(args[3]), Integer.parseInt(args[4]));

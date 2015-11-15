@@ -3,6 +3,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * The Class Map.
@@ -10,7 +11,7 @@ import java.util.ArrayList;
 public class Map {
 	
 	/** The maze map. */
-	private ArrayList<String[]> mazeMap = new ArrayList<String[]>();
+	private ArrayList<List<Character>> mazeMap = new ArrayList<>();
 	
 	/** The width. */
 	private int width;
@@ -56,8 +57,8 @@ public class Map {
 	 * @return the cell char at the specified position
 	 * @throws ArrayIndexOutOfBoundsException
 	 */
-	public char getCellCharAtPos(int x, int y) throws ArrayIndexOutOfBoundsException{		
-		return mazeMap.get(y)[x].charAt(0);
+	public Character getCellCharAtPos(int x, int y) throws ArrayIndexOutOfBoundsException{		
+		return mazeMap.get(x).get(y);
 	}
 	
 	/**
@@ -71,12 +72,19 @@ public class Map {
 			String line = null;			
 			int rowsCount = 0;
 			while ((line = br.readLine()) != null) {
-				mazeMap.add(line.split(","));
+				//mazeMap.add(line.split(","));
+				List<Character> currentLine = new ArrayList<Character>();
+				for (int i = 0; i < line.length(); i++) {
+					if (line.charAt(i) != ',') {
+						currentLine.add(Character.valueOf(line.charAt(i)));
+					}
+				}
+				mazeMap.add(currentLine);
 				rowsCount++;
 			}
 			
 			this.height = rowsCount;
-			this.width = mazeMap.get(0).length;
+			this.width = mazeMap.get(0).size();
 			
 			
 		} catch (FileNotFoundException e) {
@@ -91,13 +99,17 @@ public class Map {
 		}
 	}
 	
+	public ArrayList<List<Character>> getMazeMap() {
+		return mazeMap;
+	}
+	
 	/**
 	 * Prints the map.
 	 */
 	public void printMap() {
-		for (String[] l : mazeMap) {
-			for (String c : l) {
-				System.out.print(c + '|');				
+		for (List<Character> line : mazeMap) {
+			for (Character c : line) {
+				System.out.print(c.charValue() + '|');				
 			}
 			System.out.println();
 			

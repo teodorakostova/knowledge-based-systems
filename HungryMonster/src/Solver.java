@@ -6,12 +6,12 @@ import java.util.PriorityQueue;
  * The Class Solver.
  */
 public class Solver {
-	
+
 	/** The solver. */
 	private static Solver solver = null;
-	
+
 	/**
-	 * Used only for preventing instantiation. 
+	 * Used only for preventing instantiation.
 	 */
 	private Solver() {
 
@@ -61,6 +61,7 @@ public class Solver {
 	 *            the map
 	 */
 	private void solve(MapCell start, MapCell goal, Map map) {
+		System.out.println(map.getHeight() + " width: " + map.getWidth());
 		List<Integer> closed = new ArrayList<>();
 		List<MapCell> path = new ArrayList<>();
 		PriorityQueue<MapCell> open = new PriorityQueue<>();
@@ -71,23 +72,13 @@ public class Solver {
 		while (open.isEmpty() == false) {
 			MapCell current = open.poll();
 			closed.add(current.hashCode());
-			//System.out.println(current);
+			path.add(current);
 			steps++;
 			if (steps >= 2000) {
 				System.out.println("Cannot solve");
 				break;
 			}
 			if (current.equals(goal)) {
-				while (!current.equals(start)) {
-					path.add(current);
-					current = current.getParent();
-				}
-				int pathSize = path.size() - 1;
-				System.out.println("Steps: " + pathSize);
-				for (int i = pathSize; i >= 0; i--) {
-					System.out.println(path.get(i));
-				}
-				
 				System.out.println("Goal reached");
 				break;
 			}
@@ -98,6 +89,36 @@ public class Solver {
 					closed.add(child.hashCode());
 				}
 			}
+		}
+
+		System.out.println("Steps: " + (path.size() - 1));
+		printSteps(path);
+		dummyPrintVisited(map, path);
+	}
+
+	public void printSteps(List<MapCell> path) {
+		for (MapCell step : path) {
+			System.out.println(step);
+		}
+	}
+
+	public void dummyPrintVisited(Map map, List<MapCell> path) {
+		ArrayList<List<Character>> mazeMap = map.getMazeMap();
+		int pathSize = path.size();
+		for (int i = 0; i < mazeMap.size(); i++) {
+			for (int j = 0; j < mazeMap.get(i).size(); j++) {
+				boolean f = false;
+				for (int z = 0; z < pathSize; z++) {
+					if (path.get(z).getxCoord() == i && path.get(z).getyCoord() == j) {
+						System.out.print("#" + '|');
+						f = true;
+					}
+
+				}
+				if (!f)
+					System.out.print(map.getCellCharAtPos(i, j).toString() + '|');
+			}
+			System.out.println();
 		}
 	}
 

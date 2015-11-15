@@ -210,14 +210,14 @@ public class MapCell implements Comparable<MapCell> {
 	public ArrayList<MapCell> getChildren(Map map, MapCell goal) {
 		ArrayList<MapCell> children = new ArrayList<>();
 	
-		move(children, map, goal, xCoord + 1, yCoord, false); // east
-		move(children, map, goal, xCoord - 1, yCoord, false); // west
-		move(children, map, goal, xCoord, yCoord - 1, false); // south
-		move(children, map, goal, xCoord, yCoord + 1, false); // north
-		move(children, map, goal, xCoord + 1, yCoord - 1, true); // north-east
+		move(children, map, goal, xCoord + 1, yCoord, false); // south
+		move(children, map, goal, xCoord - 1, yCoord, false); // north
+		move(children, map, goal, xCoord, yCoord - 1, false); // west
+		move(children, map, goal, xCoord, yCoord + 1, false); // east
+		move(children, map, goal, xCoord + 1, yCoord - 1, true); // south-west
 		move(children, map, goal, xCoord - 1, yCoord - 1, true); // north-west
-		move(children, map, goal, xCoord + 1, yCoord + 1, true); // south-east
-		move(children, map, goal, xCoord - 1, yCoord + 1, true); // south-west
+		move(children, map, goal, xCoord + 1, yCoord + 1, true); // south-west
+		move(children, map, goal, xCoord - 1, yCoord + 1, true); // south-east
 		
 		return children;
 	}
@@ -245,11 +245,12 @@ public class MapCell implements Comparable<MapCell> {
 					int yPos, 
 					boolean isDiagonal) {
 		
-		if (!inBounds(map, xPos, yPos)) {
+		if (!inBounds(map, xPos, yPos)) { 
 			return;
 		}
-		char cellSymbol = map.getCellCharAtPos(xPos, yPos);		
+		Character cellSymbol = map.getCellCharAtPos(xPos, yPos);		
 		if (cellSymbol == Utils.wallSymbol) {
+			System.out.println("WAAAAAAL");
 			return;
 		}
 		
@@ -277,7 +278,7 @@ public class MapCell implements Comparable<MapCell> {
 	 * @return true, if successful
 	 */
 	private boolean inBounds(Map map, int xPos, int yPos) {
-		return xPos >= 0 && xPos < map.getWidth() && yPos >= 0 && yPos < map.getHeight();
+		return xPos >= 0 && xPos < map.getHeight() && yPos >= 0 && yPos < map.getWidth();
 	}
 
 }
