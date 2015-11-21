@@ -92,7 +92,9 @@ public class Solver {
 		}
 
 		System.out.println("Steps: " + (path.size() - 1));
-		printSteps(path);
+		//printSteps(path);
+		map.printMap();
+		System.out.println("_________________________________________________________________________________________________");
 		dummyPrintVisited(map, path);
 	}
 

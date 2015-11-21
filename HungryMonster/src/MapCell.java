@@ -250,13 +250,12 @@ public class MapCell implements Comparable<MapCell> {
 		}
 		Character cellSymbol = map.getCellCharAtPos(xPos, yPos);		
 		if (cellSymbol == Utils.wallSymbol) {
-			System.out.println("WAAAAAAL");
 			return;
 		}
 		
 		double childMovementCost = 0;
 		if (cellSymbol == Utils.waterSymbol) {
-			childMovementCost = 2;
+			childMovementCost = Utils.waterCost;
 		} else {
 			childMovementCost = isDiagonal ? Utils.diagonalCost : Utils.straightCost;
 		}

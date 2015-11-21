@@ -109,7 +109,7 @@ public class Map {
 	public void printMap() {
 		for (List<Character> line : mazeMap) {
 			for (Character c : line) {
-				System.out.print(c.charValue() + '|');				
+				System.out.print(c.charValue() + "" + '|');				
 			}
 			System.out.println();
 			
