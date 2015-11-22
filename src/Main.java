@@ -15,7 +15,7 @@ public class Main {
 		
 		/*solver.findPathToGoal(pathToMap, Integer.parseInt(args[1]), Integer.parseInt(args[2]),
 				Integer.parseInt(args[3]), Integer.parseInt(args[4]));*/
-		solver.findPathToGoal(pathToMap, 0, 70, 99, 0);
+		solver.findPathToGoal(pathToMap, 5, 0, 4, 7);
 	}
 
 }

@@ -1,92 +1,99 @@
 import java.util.ArrayList;
+import java.util.List;
 
-
-/**
- * The Class MapCell.
- */
-public class MapCell implements Comparable<MapCell> {
+public class MapCell implements Comparable<MapCell>{
 	
-	/** The x coord. */
 	private int xCoord;
 	
-	/** The y coord. */
 	private int yCoord;
 	
-	/** The parent. */
-	private MapCell parent;	
+	private Map map;
 	
-	/** The movement cost. */
-	private double movementCost;
+	private double gScore;
 	
-	/** The manhattan distance. */
-	private int manhattanDistance;
-		
-	/**
-	 * Instantiates a new map cell.
-	 *
-	 * @param xCoord
-	 *            the x coord
-	 * @param yCoord
-	 *            the y coord
-	 */
-	public MapCell(int xCoord, int yCoord) {
-		super();
+	private double fValue;
+	
+	private MapCell parent;
+	
+	public MapCell(int xCoord, int yCoord, Map map) {
 		this.xCoord = xCoord;
+		this.yCoord = yCoord;
+		this.gScore = Double.MAX_VALUE;
+		this.fValue = Double.MAX_VALUE;
+		this.parent = null;
+		this.setMap(map);
+	}
+	
+	/**
+	 * @return the xCoord
+	 */
+	public int getxCoord() {
+		return xCoord;
+	}
+
+	/**
+	 * @param xCoord the xCoord to set
+	 */
+	public void setxCoord(int xCoord) {
+		this.xCoord = xCoord;
+	}
+
+	/**
+	 * @return the yCoord
+	 */
+	public int getyCoord() {
+		return yCoord;
+	}
+
+	/**
+	 * @param yCoord the yCoord to set
+	 */
+	public void setyCoord(int yCoord) {
 		this.yCoord = yCoord;
 	}
 	
 	/**
-	 * Instantiates a new map cell.
-	 *
-	 * @param xCoord
-	 *            the x coord
-	 * @param yCoord
-	 *            the y coord
-	 * @param parent
-	 *            the parent
-	 * @param movementCost
-	 *            the movement cost
+	 * @return the map
 	 */
-	public MapCell(int xCoord, int yCoord, MapCell parent, double movementCost) {
-		this.xCoord = xCoord;
-		this.yCoord = yCoord;
-		this.setParent(parent);
-		if (parent == null) {
-			this.movementCost = 0 + movementCost;
-		}
-		else {
-			this.movementCost = parent.getMovementCost() + movementCost;
-		}
+	public Map getMap() {
+		return map;
+	}
+
+	/**
+	 * @param map the map to set
+	 */
+	public void setMap(Map map) {
+		this.map = map;
 	}
 	
 	/**
-	 * Calculate manhattan distance.
-	 *
-	 * @param goal
-	 *            the goal
+	 * @return the gScore
 	 */
-	public void calculateManhattanDistance(MapCell goal) {
-		manhattanDistance = Math.abs(goal.getxCoord() - xCoord) + Math.abs(goal.getyCoord() - yCoord);
+	public double getgScore() {
+		return gScore;
 	}
-	
+
 	/**
-	 * Gets the manhattan distance.
-	 *
-	 * @return the manhattan distance
+	 * @param gScore the gScore to set
 	 */
-	public int getManhattanDistance() {
-		return manhattanDistance;
+	public void setgScore(double gScore) {
+		this.gScore = gScore;
 	}
-	
+
 	/**
-	 * Gets the movement cost.
-	 *
-	 * @return the movement cost
+	 * @return the fValue
 	 */
-	public double getMovementCost() {
-		return movementCost;
+	public double getfValue() {
+		return fValue;
 	}
-	
+
+	/**
+	 * @param fValue the fValue to set
+	 */
+	public void setfValue(double fValue) {
+		this.fValue = fValue;
+	}
+
 	/**
 	 * @return the parent
 	 */
@@ -100,46 +107,16 @@ public class MapCell implements Comparable<MapCell> {
 	public void setParent(MapCell parent) {
 		this.parent = parent;
 	}
-		
-	/**
-	 * Gets the x coord.
-	 *
-	 * @return the x coord
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
 	 */
-	public int getxCoord() {
-		return xCoord;
+	@Override
+	public String toString() {
+		return "MapCell [xCoord=" + xCoord + ", yCoord=" + yCoord + "]" 
+				+ " f: " + fValue + " g: " + gScore ;
 	}
-	
-	/**
-	 * Sets the x coord.
-	 *
-	 * @param xCoord
-	 *            the new x coord
-	 */
-	public void setxCoord(int xCoord) {
-		this.xCoord = xCoord;
-	}
-	
-	/**
-	 * Gets the y coord.
-	 *
-	 * @return the y coord
-	 */
-	public int getyCoord() {
-		return yCoord;
-	}
-	
-	/**
-	 * Sets the y coord.
-	 *
-	 * @param yCoord
-	 *            the new y coord
-	 */
-	public void setyCoord(int yCoord) {
-		this.yCoord = yCoord;
-	}
-	 
-	
+
 	/* (non-Javadoc)
 	 * @see java.lang.Object#hashCode()
 	 */
@@ -152,132 +129,94 @@ public class MapCell implements Comparable<MapCell> {
 		return result;
 	}
 
-	
 	/* (non-Javadoc)
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
+		if (this == obj) {
 			return true;
-		if (obj == null)
+		}
+		if (obj == null) {
 			return false;
-		if (getClass() != obj.getClass())
+		}
+		if (!(obj instanceof MapCell)) {
 			return false;
+		}
 		MapCell other = (MapCell) obj;
-		if (xCoord != other.xCoord)
+		if (xCoord != other.xCoord) {
 			return false;
-		if (yCoord != other.yCoord)
+		}
+		if (yCoord != other.yCoord) {
 			return false;
+		}
 		return true;
 	}
 
-	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString() {
-		return "[xCoord=" + xCoord + ", yCoord=" + yCoord + "]";
-	}
-
-	
-	/**
-	 * Gets the fvalue.
-	 *
-	 * @return the fvalue
-	 */
-	public double getFvalue() {		
-		return movementCost + getManhattanDistance();
+	public boolean isCellInBounds() {
+		return map.areCoordinatesInBounds(this.xCoord, this.yCoord);
 	}
 	
-	/* (non-Javadoc)
-	 * @see java.lang.Comparable#compareTo(java.lang.Object)
-	 */
-	@Override
-	public int compareTo(MapCell arg0) {
-		return Double.compare(this.getFvalue(), arg0.getFvalue());
+	public boolean isCellPassable() {
+		return map.isWall(this.xCoord, this.yCoord);
 	}
 	
-	/**
-	 * Gets the children.
-	 *
-	 * @param map
-	 *            the map
-	 * @param goal
-	 *            the goal
-	 * @return the children
-	 */
-	public ArrayList<MapCell> getChildren(Map map, MapCell goal) {
-		ArrayList<MapCell> children = new ArrayList<>();
+	private boolean isDiagonalTo(MapCell mapCell) {
+		return ((xCoord == mapCell.getxCoord() - 1 && yCoord == mapCell.getyCoord() - 1) ||
+				(xCoord == mapCell.getxCoord() + 1 && yCoord == mapCell.getyCoord() + 1) ||
+				(xCoord == mapCell.getxCoord() - 1 && yCoord == mapCell.getyCoord() + 1) ||
+				(xCoord == mapCell.getxCoord() + 1 && yCoord == mapCell.getyCoord() - 1));
+	}
 	
-		move(children, map, goal, xCoord + 1, yCoord, false); // south
-		move(children, map, goal, xCoord - 1, yCoord, false); // north
-		move(children, map, goal, xCoord, yCoord - 1, false); // west
-		move(children, map, goal, xCoord, yCoord + 1, false); // east
-		move(children, map, goal, xCoord + 1, yCoord - 1, true); // south-west
-		move(children, map, goal, xCoord - 1, yCoord - 1, true); // north-west
-		move(children, map, goal, xCoord + 1, yCoord + 1, true); // south-west
-		move(children, map, goal, xCoord - 1, yCoord + 1, true); // south-east
-		
+	public double findDistanceTo(MapCell mapCell) {
+		return Math.abs(mapCell.getxCoord() - xCoord) + Math.abs(mapCell.getyCoord() - yCoord);
+	}
+	
+	public double findMovementCostTo(MapCell mapCell) {
+		if (map.isWater(mapCell.getxCoord(), mapCell.getyCoord())) {
+			return Utils.waterCost;
+		}
+		if (isDiagonalTo(mapCell)) {
+			return Utils.diagonalCost;
+		}
+		return Utils.straightCost;
+	}
+	
+	public List<MapCell> getChildren() {
+		List<MapCell> children = new ArrayList<>();
+		addNewChild(children, xCoord + 1, yCoord);
+		addNewChild(children, xCoord - 1, yCoord);
+		addNewChild(children, xCoord, yCoord + 1);
+		addNewChild(children, xCoord, yCoord - 1);
+		addNewChild(children, xCoord + 1, yCoord + 1);
+		addNewChild(children, xCoord - 1, yCoord - 1);
+		addNewChild(children, xCoord - 1, yCoord + 1);
+		addNewChild(children, xCoord + 1, yCoord - 1);
 		return children;
 	}
 	
 	/**
-	 * Move.
-	 *
-	 * @param children
-	 *            the children
-	 * @param map
-	 *            the map
-	 * @param goal
-	 *            the goal
-	 * @param xPos
-	 *            the x pos
-	 * @param yPos
-	 *            the y pos
-	 * @param isDiagonal
-	 *            the is diagonal
+	 * Adds a child of this cell if it is passable and is in bounds
+	 * of the map
+	 * @param children the children
+	 * @param childXCoord the new child x coordinates
+	 * @param childYCoord the new child y coordinates
 	 */
-	public void move(ArrayList<MapCell> children, 
-					Map map, 
-					MapCell goal, 
-					int xPos, 
-					int yPos, 
-					boolean isDiagonal) {
-		
-		if (!inBounds(map, xPos, yPos)) { 
-			return;
+	private void addNewChild(List<MapCell> children, int childXcoord, int childYcoord) {
+		if (map.areCoordinatesInBounds(childXcoord, childYcoord) && !map.isWall(childXcoord, childYcoord)) {
+			MapCell child = new MapCell(childXcoord, childYcoord, map);
+			children.add(child);
 		}
-		Character cellSymbol = map.getCellCharAtPos(xPos, yPos);		
-		if (cellSymbol == Utils.wallSymbol) {
-			return;
-		}
-		
-		double childMovementCost = 0;
-		if (cellSymbol == Utils.waterSymbol) {
-			childMovementCost = Utils.waterCost;
-		} else {
-			childMovementCost = isDiagonal ? Utils.diagonalCost : Utils.straightCost;
-		}
-		
-		MapCell child = new MapCell(xPos, yPos, this, childMovementCost);
-		child.calculateManhattanDistance(goal); // TODO: refactor this
-		children.add(child);
-	}
-	
-	/**
-	 * In bounds.
-	 *
-	 * @param map
-	 *            the map
-	 * @param xPos
-	 *            the x pos
-	 * @param yPos
-	 *            the y pos
-	 * @return true, if successful
-	 */
-	private boolean inBounds(Map map, int xPos, int yPos) {
-		return xPos >= 0 && xPos < map.getHeight() && yPos >= 0 && yPos < map.getWidth();
 	}
 
+	@Override
+	public int compareTo(MapCell o) {
+		if (Double.compare(o.getfValue(), fValue) == 1)
+			return -1;
+		else if (Double.compare(o.getfValue(), fValue) == -1) {
+			return 1;
+		}
+		return 0;
+	}
+	
 }
