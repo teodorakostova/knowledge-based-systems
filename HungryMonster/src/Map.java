@@ -47,6 +47,10 @@ public class Map {
 		return height;
 	}
 	
+	public ArrayList<List<Character>> getMazeMap() {
+		return mazeMap;
+	}
+	
 	/**
 	 * Gets the cell char at position.
 	 *
@@ -99,9 +103,6 @@ public class Map {
 		}
 	}
 	
-	public ArrayList<List<Character>> getMazeMap() {
-		return mazeMap;
-	}
 	
 	/**
 	 * Prints the map.
@@ -114,6 +115,18 @@ public class Map {
 			System.out.println();
 			
 		}
+	}
+	
+	public boolean areCoordinatesInBounds(int xCoord, int yCoord) {
+		return (yCoord >= 0 && yCoord < this.getWidth() && xCoord >= 0 && xCoord < this.getHeight());
+	}
+	
+	public boolean isWall(int xCoord, int yCoord) {
+		return getCellCharAtPos(xCoord, yCoord) == Utils.wallSymbol;
+	}
+	
+	public boolean isWater(int xCoord, int yCoord) {
+		return getCellCharAtPos(xCoord, yCoord) == Utils.wallSymbol;
 	}
 	
 }

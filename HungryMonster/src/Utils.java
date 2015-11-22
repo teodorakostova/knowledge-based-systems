@@ -20,5 +20,6 @@ public class Utils {
 	public static double waterCost = 2.0;
 	
 	/** The default path to map. */
-	public static String defaultPathToMap = "C:\\Users\\Teodora\\Projects\\KnowledgeBasedSystems\\knowledge-based-systems\\HungryMonster\\mymap6.csv";
+	public static String defaultPathToMap = "C:\\Users\\Teodora\\Projects\\KnowledgeBasedSystems\\knowledge-based-systems\\HungryMonster\\mymap0.csv";
+	
 }
